@@ -1,0 +1,3 @@
+Change the relationship Many To Many of Movie and Director to a Many To One and One To Many
+
+Inside the user package in AuthController on line 103 there is a Switch Case of a single Case, change it for another conditional 
