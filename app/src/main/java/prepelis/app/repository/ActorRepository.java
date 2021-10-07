@@ -7,4 +7,6 @@ public interface ActorRepository extends JpaRepository<Actor, Long>{
 
     Actor findByName(String actorName);
 
+    Actor findActorById(Long id);
+
 }

@@ -1,5 +1,6 @@
 package prepelis.app.controller;
 
+import prepelis.app.dto.ActorDto;
 import prepelis.app.dto.DirectorDto;
 import prepelis.app.service.api.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,12 @@ public class DirectorController {
 
     @Autowired
     private DirectorService directorService;
+
+    @GetMapping("/director/{id}")
+    public ResponseEntity<DirectorDto> getDirector(@PathVariable(name = "id") Long id) {
+        DirectorDto director = directorService.getDirector(id);
+        return new ResponseEntity<>(director, HttpStatus.OK);
+    }
 
     @GetMapping("/directors")
     public ResponseEntity<List<DirectorDto>> getAllDirectors() {

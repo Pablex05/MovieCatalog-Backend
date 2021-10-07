@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import prepelis.app.dto.DirectorDto;
 import prepelis.app.dto.MovieDto;
 import prepelis.app.service.api.MovieService;
 
@@ -21,6 +22,12 @@ public class MovieController {
 
     @Autowired
     private MovieService movieService;
+
+    @GetMapping("/movie/{id}")
+    public ResponseEntity<MovieDto> getMovie(@PathVariable(name = "id") Long id) {
+        MovieDto movie = movieService.getMovie(id);
+        return new ResponseEntity<>(movie, HttpStatus.OK);
+    }
 
     @GetMapping("/movies")
     public ResponseEntity<List<MovieDto>> getAllMovies() {

@@ -35,14 +35,27 @@ public class DirectorServiceImpl implements DirectorService {
     }
 
     @Override
+    public DirectorDto getDirector(Long id) {
+        DirectorDto directorDto = new DirectorDto();
+        Director actor = directorRepository.findDirectorById(id);
+        try {
+            directorDto = mapEntityToDto(actor);
+            return directorDto;
+        }catch (Exception e){
+            e.getCause();
+        }
+        return null;
+    }
+
+    @Override
     public List<DirectorDto> getAllDirectors() {
-        List<DirectorDto> directorDtos = new ArrayList<>();
+        List<DirectorDto> directorsDto = new ArrayList<>();
         List<Director>  directors = directorRepository.findAll();
         directors.forEach(director -> {
             DirectorDto directorDto = mapEntityToDto(director);
-            directorDtos.add(directorDto);
+            directorsDto.add(directorDto);
         });
-        return directorDtos;
+        return directorsDto;
     }
 
     @Transactional

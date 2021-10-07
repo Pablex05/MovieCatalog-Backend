@@ -40,6 +40,19 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public MovieDto getMovie(Long id) {
+        MovieDto movieDto = new MovieDto();
+        Movie movie = movieRepository.findMovieById(id);
+        try {
+            movieDto = mapEntityToDto(movie);
+            return movieDto;
+        }catch (Exception e){
+            e.getCause();
+        }
+        return null;
+    }
+
+    @Override
     public List<MovieDto> getAllMovies() {
         List<MovieDto> movieDtos = new ArrayList<>();
         List<Movie> movies = movieRepository.findAll();

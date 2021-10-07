@@ -7,4 +7,6 @@ public interface DirectorRepository extends JpaRepository<Director, Long>{
 
     Director findByName(String directorName);
 
+    Director findDirectorById(Long id);
+
 }

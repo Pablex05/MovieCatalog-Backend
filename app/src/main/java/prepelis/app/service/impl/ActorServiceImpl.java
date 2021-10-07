@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import prepelis.app.dto.ActorDto;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -35,14 +36,27 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
+    public ActorDto getActor(Long id) {
+        ActorDto actorDto = new ActorDto();
+        Actor actor = actorRepository.findActorById(id);
+        try {
+            actorDto = mapEntityToDto(actor);
+            return actorDto;
+        }catch (Exception e){
+            e.getMessage();
+        }
+        return null;
+    }
+
+    @Override
     public List<ActorDto> getAllActors() {
-        List<ActorDto> actorDtos = new ArrayList<>();
+        List<ActorDto> actorsDto = new ArrayList<>();
         List<Actor> actors = actorRepository.findAll();
         actors.forEach(actor -> {
             ActorDto actorDto = mapEntityToDto(actor);
-            actorDtos.add(actorDto);
+            actorsDto.add(actorDto);
         });
-        return actorDtos;
+        return actorsDto;
     }
 
     @Transactional
