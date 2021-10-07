@@ -32,7 +32,7 @@ App Security Properties
 
 ## First add some rows into roles table before assigning any role to User
 
-*** Run following SQL insert statements: ***
+**Run following SQL insert statements:**
 
     INSERT INTO roles(name) VALUES('ROLE_USER');
 
@@ -64,13 +64,19 @@ POST localhost:8080/api/auth/signin
 
 ## User Test
 
-localhost:8080/api/all
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
 
-localhost:8080/api/user
+    localhost:8080/api/all
 
-localhost:8080/api/admin
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
 
-*** Once logged in, use the token obtained in the Authorization field of postman with the type "Bearer token" ***
+    localhost:8080/api/user
+
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
+
+    localhost:8080/api/admin
+
+## ***Once logged in, use the token obtained in the Authorization field of postman with the type "Bearer token"***
 
 ## Movies
 
