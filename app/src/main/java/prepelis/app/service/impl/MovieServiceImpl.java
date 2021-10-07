@@ -54,13 +54,13 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<MovieDto> getAllMovies() {
-        List<MovieDto> movieDtos = new ArrayList<>();
+        List<MovieDto> moviesDto = new ArrayList<>();
         List<Movie> movies = movieRepository.findAll();
         movies.forEach(movie -> {
             MovieDto movieDto = mapEntityToDto(movie);
-            movieDtos.add(movieDto);
+            moviesDto.add(movieDto);
         });
-        return movieDtos;
+        return moviesDto;
     }
 
     @Transactional
