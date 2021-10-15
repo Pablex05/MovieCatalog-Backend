@@ -61,8 +61,8 @@ public class DirectorServiceImpl implements DirectorService {
     @Transactional
     @Override
     public DirectorDto updateDirector(Long id, DirectorDto directorDto) {
-        Director crs = directorRepository.getOne(id);
-        Movie std = movieRepository.getOne(id);
+        Director crs = directorRepository.getById(id);
+        Movie std = movieRepository.getById(id);
         std.removeDirector(crs);
         mapDtoToEntity(directorDto, crs);
         Director director = directorRepository.save(crs);

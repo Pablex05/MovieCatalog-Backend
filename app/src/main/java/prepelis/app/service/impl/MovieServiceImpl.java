@@ -10,6 +10,7 @@ import prepelis.app.repository.MovieRepository;
 import prepelis.app.service.api.MovieService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import prepelis.app.user.models.User;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -66,8 +67,8 @@ public class MovieServiceImpl implements MovieService {
     @Transactional
     @Override
     public MovieDto updateMovie(Long id, MovieDto movieDto) {
-        Movie std = movieRepository.getOne(id);
-        Actor actor = actorRepository.getOne(id);
+        Movie std = movieRepository.getById(id);
+        Actor actor = actorRepository.getById(id);
         actor.removeMovie(std);
         mapDtoToEntity(movieDto, std);
         Movie movie = movieRepository.save(std);

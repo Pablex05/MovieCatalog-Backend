@@ -62,7 +62,6 @@ public class Movie {
             @JoinColumn(name = "director_id") })
     private Set<Director> director;
 
-
     public void addActor(Actor actor) {
         this.actors.add(actor);
         actor.getMovies().add(this);

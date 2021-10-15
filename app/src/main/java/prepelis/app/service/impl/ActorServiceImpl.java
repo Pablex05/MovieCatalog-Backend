@@ -62,8 +62,8 @@ public class ActorServiceImpl implements ActorService {
     @Transactional
     @Override
     public ActorDto updateActor(Long id, ActorDto actorDto) {
-        Actor crs = actorRepository.getOne(id);
-        Movie std = movieRepository.getOne(id);
+        Actor crs = actorRepository.getById(id);
+        Movie std = movieRepository.getById(id);
         std.removeActor(crs);
         mapDtoToEntity(actorDto, crs);
         Actor actor = actorRepository.save(crs);

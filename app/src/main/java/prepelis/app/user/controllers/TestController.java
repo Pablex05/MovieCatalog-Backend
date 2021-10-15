@@ -8,21 +8,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth/test")
 public class TestController {
+
 	@GetMapping("/all")
 	public String allAccess() {
 		return "Public Content.";
 	}
 	
 	@GetMapping("/user")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	@PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
 	public String userAccess() {
 		return "User";
 	}
 
 	@GetMapping("/admin")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String adminAccess() {
 		return "Admin";
 	}
