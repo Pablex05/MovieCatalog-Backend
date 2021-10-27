@@ -34,13 +34,13 @@ App Security Properties
 
 **Run following SQL insert statements:**
 
-    INSERT INTO roles(name) VALUES('ROLE_USER');
+    INSERT INTO roles(name) VALUES('USER');
 
-    INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+    INSERT INTO roles(name) VALUES('ADMIN');
 
 ## User Authentication
 
-### Signup
+### Register
 
 POST localhost:8080/api/auth/signup
 
@@ -51,30 +51,28 @@ POST localhost:8080/api/auth/signup
     "role":["admin", "user"] or ["user"] or ["admin"]
     }
 
-### Signin
+### Login
 
 POST localhost:8080/api/auth/signin
 
     {
     "username": "Username",
-    "email": "Email",
     "password":"Password",
-    "role":["admin", "user"] or ["user"] or ["admin"]
     }
 
 ## User Test
 
 ![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
 
-    localhost:8080/api/all
+    http://localhost:8080/api/auth/test/all
 
 ![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
 
-    localhost:8080/api/user
+    http://localhost:8080/api/auth/test/user
 
 ![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
 
-    localhost:8080/api/admin
+    http://localhost:8080/api/auth/test/admin
 
 ## ***Once logged in, use the token obtained in the Authorization field of postman with the type "Bearer token"***
 
@@ -83,36 +81,42 @@ POST localhost:8080/api/auth/signin
 JSON FORMAT:
 
     {
-    "Title":"title",
-    "Trailer":"url",
-    "Language":"ENGLISH",
-    "Subtitle":"SPANISH",
-    "Genre":"HORROR",
-    "Duration":"01:30:00",
-    "Release Date":"2021-06-05",
-    "Cast":   
-        [
-        "actor1",
-        "actor2"
+    "Title": "MovieTitle",
+    "Genre": "HORROR",
+    "Release Date": "2021-06-05",
+    "Duration": "01:30:00",
+    "Trailer": "url",
+    "Language": "ENGLISH",
+    "Subtitle": "SPANISH",
+    "Cast": [
+        "actor1"
         ],
-    "Director": ["director1"]
-    }
+    "Director": "director1"
+}
 
 ![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
 
-    localhost:8080/movies
+    http://localhost:8080/movie/getAll
+
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
+
+    http://localhost:8080/movie/getById/{id}
+
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
+
+    http://localhost:8080/movie/getByTitle/{title}
 
 ![GET](https://img.shields.io/badge/method-POST-yellow.svg)
 
-    localhost:8080/movie
+    localhost:8080/movie/add
 
 ![GET](https://img.shields.io/badge/method-PUT-blueviolet.svg)
 
-    localhost:8080/movie/id
+    localhost:8080/movie/edit/{id}
 
 ![GET](https://img.shields.io/badge/method-DELETE-red.svg)
 
-    localhost:8080/movie/id
+    http://localhost:8080/movie/delete/{id}
 
 ## Actors
 
@@ -120,24 +124,31 @@ JSON FORMAT:
 
     {   
     "Name": "name",
-    "movies": ["title1", "title2"] 
     }
 
 ![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg) 
 
-    localhost:8080/actors
+    http://localhost:8080/actor/getAll
+
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
+
+    http://localhost:8080/actor/getById/{id}
+
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
+
+    http://localhost:8080/actor/getByName/{name}
 
 ![GET](https://img.shields.io/badge/method-POST-yellow.svg)
 
-    localhost:8080/actor
+    http://localhost:8080/actor/add
 
 ![GET](https://img.shields.io/badge/method-PUT-blueviolet.svg)
 
-    localhost:8080/actor/id
+    localhost:8080/actor/edit/{id}
 
 ![GET](https://img.shields.io/badge/method-DELETE-red.svg)
 
-    localhost:8080/actor/id
+    localhost:8080/actor/delete/{id}
 
 ## Directors
 
@@ -145,21 +156,28 @@ JSON FORMAT:
 
     {   
     "Name": "name",
-    "movies": ["title1", "title2"] 
     }
 
 ![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg) 
 
-    localhost:8080/directors
+    http://localhost:8080/director/getAll
+
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
+
+    http://localhost:8080/movie/getById/{id}
+
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
+
+    http://localhost:8080/director/getByName/{name}
 
 ![GET](https://img.shields.io/badge/method-POST-yellow.svg)
 
-    localhost:8080/director
+    localhost:8080/director/add
 
 ![GET](https://img.shields.io/badge/method-PUT-blueviolet.svg)
 
-    localhost:8080/director/id
+    localhost:8080/director/edit/{id}
 
 ![GET](https://img.shields.io/badge/method-DELETE-red.svg)
 
-    localhost:8080/director/id
+    localhost:8080/director/delete/{id}

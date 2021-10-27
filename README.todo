@@ -1,3 +1,5 @@
-Change the relationship Many To Many of Movie and Director to a Many To One and One To Many
+Handler NullPointerException on spring and 403 Forbidden with @preauthorization refused the connection on React
 
-Inside the user package in AuthController on line 103 there is a Switch Case of a single Case, change it for another conditional 
+Create a Logout on the backend
+
+
