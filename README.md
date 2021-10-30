@@ -42,7 +42,7 @@ App Security Properties
 
 ### Register
 
-POST localhost:8080/api/auth/signup
+POST localhost:8080/api/auth/register
 
     {
     "username": "Username",
@@ -53,7 +53,7 @@ POST localhost:8080/api/auth/signup
 
 ### Login
 
-POST localhost:8080/api/auth/signin
+POST localhost:8080/api/auth/login
 
     {
     "username": "Username",
