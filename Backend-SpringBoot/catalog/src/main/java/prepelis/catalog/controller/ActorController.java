@@ -19,35 +19,30 @@ public class ActorController {
     private ActorService actorService;
 
     @GetMapping("/getById/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<ActorDto> getActorById(@PathVariable(name = "id") Long id){
         ActorDto actor = actorService.getActorById(id);
         return new ResponseEntity<>(actor, HttpStatus.OK);
     }
 
     @GetMapping("/getByName/{name}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<ActorDto> getActorById(@PathVariable(name = "name") String name){
         ActorDto actor = actorService.getActorByName(name);
         return new ResponseEntity<>(actor, HttpStatus.OK);
     }
 
     @GetMapping("/getAll")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<ActorDto>> getAllActors() {
         List<ActorDto> actors = actorService.getAllActors();
         return new ResponseEntity<>(actors, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> addActor(@RequestBody ActorDto actorDto) {
         String message = actorService.addActor(actorDto);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @PutMapping("/edit/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> updateActor(@PathVariable(name = "id") Long id,
                                               @RequestBody ActorDto actorDto) {
         String message = actorService.updateActor(id, actorDto);
@@ -56,7 +51,6 @@ public class ActorController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteActor(@PathVariable(name = "id") Long id) {
         String message = actorService.deleteActor(id);
         return new ResponseEntity<>(message, HttpStatus.OK);

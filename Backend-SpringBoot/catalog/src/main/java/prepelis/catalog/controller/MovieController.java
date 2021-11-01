@@ -22,7 +22,6 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping("/getById/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<MovieDto> getMovieById(@PathVariable(name = "id") Long id) {
         try{
             MovieDto movie = movieService.getMovieById(id);
@@ -34,7 +33,6 @@ public class MovieController {
     }
 
     @GetMapping("/getByTitle/{title}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<MovieDto> getMovieByTitle(@PathVariable(name = "title") String title){
         try {
             MovieDto movie = movieService.getMovieByTitle(title);
@@ -46,25 +44,18 @@ public class MovieController {
     }
 
     @GetMapping("/getAll")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<MovieDto>> getAllMovies() {
-        try {
-            List<MovieDto> movies = movieService.getAllMovies();
-            return new ResponseEntity<>(movies, HttpStatus.OK);
-        } catch (NullPointerException e){
-            throw new DataNotFoundException("Movie not found in database");
-        }
+        List<MovieDto> movies = movieService.getAllMovies();
+        return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> addMovie(@RequestBody MovieDto movieDto) {
         String message = movieService.addMovie(movieDto);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @PutMapping("/edit/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> updateMovie(@PathVariable(name = "id") Long id,
                                               @RequestBody MovieDto movie) {
         try {
@@ -76,7 +67,6 @@ public class MovieController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteMovie(@PathVariable(name = "id") Long movieId) {
         try {
             String message = movieService.deleteMovie(movieId);

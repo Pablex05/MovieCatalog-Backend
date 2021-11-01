@@ -94,6 +94,24 @@ POST localhost:8080/api/auth/logout
 
 ## ***Once logged in, use the token obtained in the Authorization field of postman with the type "Bearer token"***
 
+## User search (only admins)
+
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
+
+    http://localhost:8080/api/user/getById{id}
+
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
+
+    http://localhost:8080/api/user/getByUsername{username}
+
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
+
+    http://localhost:8080/api/user/getByEmail{email}
+
+![GET](https://img.shields.io/badge/method-GET-%3CCOLOR%3E.svg)
+
+    http://localhost:8080/api/user/getAll
+
 ## Movies
 
 JSON FORMAT:

@@ -20,7 +20,6 @@ public class DirectorController {
     private DirectorService directorService;
 
     @GetMapping("/getById/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<DirectorDto> getDirectorById(@PathVariable(name = "id") Long id){
         try {
             DirectorDto director = directorService.getDirectorById(id);
@@ -31,7 +30,6 @@ public class DirectorController {
     }
 
     @GetMapping("/getByName/{name}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<DirectorDto> getActorById(@PathVariable(name = "name") String name){
         try {
             DirectorDto director = directorService.getDirectorByName(name);
@@ -42,21 +40,18 @@ public class DirectorController {
     }
 
     @GetMapping("/getAll")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<DirectorDto>> getAllDirectors() {
         List<DirectorDto> directors = directorService.getAllDirectors();
         return new ResponseEntity<>(directors, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> addDirector(@RequestBody DirectorDto directorDto) {
         String message = directorService.addDirector(directorDto);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @PutMapping("/edit/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> updateDirector(@PathVariable(name = "id") Long id,
                                                  @RequestBody DirectorDto directorDto) {
         try {
@@ -68,7 +63,6 @@ public class DirectorController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteDirector(@PathVariable(name = "id") Long id) {
         try {
             String message = directorService.deleteDirector(id);

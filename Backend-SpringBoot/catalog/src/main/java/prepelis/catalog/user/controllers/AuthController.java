@@ -42,6 +42,7 @@ import prepelis.catalog.user.security.services.UserDetailsImpl;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
   @Autowired
   AuthenticationManager authenticationManager;
 
