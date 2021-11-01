@@ -19,32 +19,35 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping("/getById/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<MovieDto> getMovieById(@PathVariable(name = "id") Long id) {
         MovieDto movie = movieService.getMovieById(id);
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
     @GetMapping("/getByTitle/{title}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<MovieDto> getMovieByTitle(@PathVariable(name = "title") String title){
         MovieDto movie = movieService.getMovieByTitle(title);
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
     @GetMapping("/getAll")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<MovieDto>> getAllMovies() {
         List<MovieDto> movies = movieService.getAllMovies();
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> addMovie(@RequestBody MovieDto movieDto) {
         String message = movieService.addMovie(movieDto);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @PutMapping("/edit/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> updateMovie(@PathVariable(name = "id") Long id,
                                               @RequestBody MovieDto movie) {
         String message = movieService.updateMovie(id, movie);
@@ -52,7 +55,7 @@ public class MovieController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteMovie(@PathVariable(name = "id") Long movieId) {
         String message = movieService.deleteMovie(movieId);
         return new ResponseEntity<>(message, HttpStatus.OK);

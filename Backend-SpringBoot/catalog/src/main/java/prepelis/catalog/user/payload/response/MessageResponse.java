@@ -1,6 +1,5 @@
 package prepelis.catalog.user.payload.response;
 
-
 public class MessageResponse {
 	private String message;
 

@@ -28,21 +28,23 @@ App Security Properties
 
     app.jwtExpirationMs= 86400000
 
+    app.jwtRefreshExpirationMs= 86400000
+
 # HOW TO USE?
 
 ## First add some rows into roles table before assigning any role to User
 
 **Run following SQL insert statements:**
 
-    INSERT INTO roles(name) VALUES('USER');
+    INSERT INTO roles(name) VALUES('ROLE_USER');
 
-    INSERT INTO roles(name) VALUES('ADMIN');
+    INSERT INTO roles(name) VALUES('ROLE_ADMIN');
 
 ## User Authentication
 
 ### Register
 
-POST localhost:8080/api/auth/signup
+POST localhost:8080/api/auth/register
 
     {
     "username": "Username",
@@ -53,11 +55,27 @@ POST localhost:8080/api/auth/signup
 
 ### Login
 
-POST localhost:8080/api/auth/signin
+POST localhost:8080/api/auth/login
 
     {
     "username": "Username",
     "password":"Password",
+    }
+
+### Refresh token
+
+POST localhost:8080/api/auth/refreshtoken
+
+    {
+    "refreshToken":"refresh-token"
+    }
+
+### Refresh token
+
+POST localhost:8080/api/auth/logout
+
+    {
+    "userId":id
     }
 
 ## User Test

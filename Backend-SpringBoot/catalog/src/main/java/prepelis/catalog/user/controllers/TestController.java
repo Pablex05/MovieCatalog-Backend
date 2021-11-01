@@ -10,21 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth/test")
 public class TestController {
-
 	@GetMapping("/all")
 	public String allAccess() {
 		return "Public Content.";
 	}
 	
 	@GetMapping("/user")
-	@PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public String userAccess() {
-		return "User";
+		return "User Content.";
 	}
 
 	@GetMapping("/admin")
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String adminAccess() {
-		return "Admin";
+		return "Admin Board.";
 	}
 }

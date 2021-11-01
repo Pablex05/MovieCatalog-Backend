@@ -1,6 +1,6 @@
 package prepelis.catalog.user.models;
 
 public enum ERole {
-	USER,
-    ADMIN
+  ROLE_USER,
+  ROLE_ADMIN
 }
