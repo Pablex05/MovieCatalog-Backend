@@ -11,8 +11,12 @@ import prepelis.catalog.user.models.User;
 
 @Repository
 public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long> {
+
   Optional<RefreshToken> findByToken(String token);
 
+  /**
+   * Using @Modifying will remove any pending updates to managed authorizations in the persistence context.
+   */
   @Modifying
   int deleteByUser(User user);
 }

@@ -3,13 +3,10 @@ package prepelis.catalog.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import prepelis.catalog.dto.MovieDto;
 import prepelis.catalog.exception.DataNotFoundException;
 import prepelis.catalog.service.api.MovieService;
-import prepelis.catalog.user.exception.TokenRefreshException;
 
 import java.util.List;
 
@@ -21,6 +18,12 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    /**
+     * ResponseEntity represents an HTTP response, including headers, body, and status.
+     * While @ResponseBody puts the return value into the body of the response,
+     * ResponseEntity also allows us to add headers and status code.
+     */
+
     @GetMapping("/getById/{id}")
     public ResponseEntity<MovieDto> getMovieById(@PathVariable(name = "id") Long id) {
         try{
@@ -29,7 +32,6 @@ public class MovieController {
         } catch (NullPointerException e){
             throw new DataNotFoundException("Movie not found in database");
         }
-
     }
 
     @GetMapping("/getByTitle/{title}")
@@ -40,7 +42,6 @@ public class MovieController {
         } catch (NullPointerException e){
             throw new DataNotFoundException("Movie not found in database");
         }
-
     }
 
     @GetMapping("/getAll")

@@ -19,6 +19,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * @Service annotation is used with classes that provide some business functionalities.
+ * Spring context will autodetect these classes when annotation-based configuration and classpath scanning is used.
+ */
 @Service
 public class MovieServiceImpl implements MovieService {
 

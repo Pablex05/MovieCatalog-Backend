@@ -16,6 +16,7 @@ import prepelis.catalog.user.repository.UserRepository;
 
 @Service
 public class RefreshTokenService {
+
   @Value("${app.jwtRefreshExpirationMs}")
   private Long refreshTokenDurationMs;
 
@@ -53,4 +54,5 @@ public class RefreshTokenService {
   public int deleteByUserId(Long userId) {
     return refreshTokenRepository.deleteByUser(userRepository.findById(userId).get());
   }
+
 }

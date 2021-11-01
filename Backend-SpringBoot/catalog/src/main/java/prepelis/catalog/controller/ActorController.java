@@ -3,9 +3,9 @@ package prepelis.catalog.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import prepelis.catalog.dto.ActorDto;
+import prepelis.catalog.exception.DataNotFoundException;
 import prepelis.catalog.service.api.ActorService;
 
 import java.util.List;
@@ -20,14 +20,22 @@ public class ActorController {
 
     @GetMapping("/getById/{id}")
     public ResponseEntity<ActorDto> getActorById(@PathVariable(name = "id") Long id){
-        ActorDto actor = actorService.getActorById(id);
-        return new ResponseEntity<>(actor, HttpStatus.OK);
+        try {
+            ActorDto actor = actorService.getActorById(id);
+            return new ResponseEntity<>(actor, HttpStatus.OK);
+        } catch (NullPointerException e){
+            throw new DataNotFoundException("Actor not found in database");
+        }
     }
 
     @GetMapping("/getByName/{name}")
     public ResponseEntity<ActorDto> getActorById(@PathVariable(name = "name") String name){
-        ActorDto actor = actorService.getActorByName(name);
-        return new ResponseEntity<>(actor, HttpStatus.OK);
+        try {
+            ActorDto actor = actorService.getActorByName(name);
+            return new ResponseEntity<>(actor, HttpStatus.OK);
+        } catch (NullPointerException e){
+            throw new DataNotFoundException("Actor not found in database");
+        }
     }
 
     @GetMapping("/getAll")
@@ -45,15 +53,22 @@ public class ActorController {
     @PutMapping("/edit/{id}")
     public ResponseEntity<String> updateActor(@PathVariable(name = "id") Long id,
                                               @RequestBody ActorDto actorDto) {
-        String message = actorService.updateActor(id, actorDto);
-        return new ResponseEntity<>(message, HttpStatus.CREATED);
-
+        try {
+            String message = actorService.updateActor(id, actorDto);
+            return new ResponseEntity<>(message, HttpStatus.CREATED);
+        } catch (NullPointerException e){
+            throw new DataNotFoundException("Actor not found in database");
+        }
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteActor(@PathVariable(name = "id") Long id) {
-        String message = actorService.deleteActor(id);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        try {
+            String message = actorService.deleteActor(id);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (NullPointerException e) {
+            throw new DataNotFoundException("Actor not found in database");
+        }
     }
 }
 

@@ -9,6 +9,13 @@ import prepelis.catalog.exception.DataNotFoundException;
 
 import java.util.Date;
 
+/**
+ * @RestControllerAdvice is the combination of @ControllerAdvice and @ResponseBody
+ * We can use the @ControllerAdvice annotation for handling exceptions in the RESTful Services,
+ * but we need to add @ResponseBody separately.
+ * it is a kind of interceptor that surrounds the logic in our Controllers and allows us to apply some common logic to them.
+ */
+
 @RestControllerAdvice
 public class DataNotFoundAdvice {
 

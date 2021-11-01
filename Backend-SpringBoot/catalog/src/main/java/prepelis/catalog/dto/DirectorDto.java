@@ -18,4 +18,5 @@ public class DirectorDto {
 
     @JsonProperty("Movies")
     Set<String> movies = new HashSet<>();
+
 }

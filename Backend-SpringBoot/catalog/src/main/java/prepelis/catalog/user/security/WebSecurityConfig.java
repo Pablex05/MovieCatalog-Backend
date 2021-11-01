@@ -19,11 +19,18 @@ import prepelis.catalog.user.security.jwt.AuthEntryPointJwt;
 import prepelis.catalog.user.security.jwt.AuthTokenFilter;
 import prepelis.catalog.user.security.services.UserDetailsServiceImpl;
 
+/**
+ * @EnableWebSecurity allows Spring to find and automatically apply the class to the global Web Security.
+ * @EnableGlobalMethodSecurity provides AOP security on methods.  It enables @PreAuthorize, @PostAuthorize
+ * Use @Configuration annotation on top of any class to declare that this class provides one or more @Bean methods
+ * and may be processed by the Spring container to generate bean definitions and service requests for those beans at runtime.
+ */
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
 

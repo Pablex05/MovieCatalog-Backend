@@ -3,7 +3,6 @@ package prepelis.catalog.user.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import prepelis.catalog.exception.DataNotFoundException;
 import prepelis.catalog.user.models.User;
@@ -39,7 +38,6 @@ public class UserController {
         User user = userService.getUserByEmail(email)
                 .orElseThrow(() -> new DataNotFoundException("User Not Found with email: " + email));
         return new ResponseEntity<>(user, HttpStatus.OK);
-
     }
 
     @GetMapping("/getAll")

@@ -25,8 +25,6 @@ public class ActorServiceImpl implements ActorService {
     @Resource
     private ActorRepository actorRepository;
 
-
-
     @Transactional
     @Override
     public String addActor(ActorDto actorDto) {

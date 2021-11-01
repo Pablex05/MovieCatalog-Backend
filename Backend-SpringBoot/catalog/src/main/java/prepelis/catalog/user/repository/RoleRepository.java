@@ -10,5 +10,7 @@ import prepelis.catalog.user.models.Role;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
+
   Optional<Role> findByName(ERole name);
+
 }

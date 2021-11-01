@@ -30,15 +30,29 @@ App Security Properties
 
     app.jwtRefreshExpirationMs= 86400000
 
-# HOW TO USE?
+## Data Base Model
 
-## First add some rows into roles table before assigning any role to User
+![spring-boot-spring-security-jwt-authentication-flow](docs/entity-relationship.jpg)
+
+## Data Base User Model
+
+![spring-boot-spring-security-jwt-authentication-flow](docs/user-diagram.jpg)
+
+## Add some rows into roles table
 
 **Run following SQL insert statements:**
 
     INSERT INTO roles(name) VALUES('ROLE_USER');
 
     INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+
+## User Registration, User Login and Authorization process
+
+![spring-boot-spring-security-jwt-authentication-flow](docs/authentication-flow.png)
+
+##Refresh Token process
+
+![spring-boot-refresh-token-jwt-example-flow](docs/refresh-token-jwt-flow.png)
 
 ## User Authentication
 
