@@ -50,7 +50,7 @@ App Security Properties
 
 ![spring-boot-spring-security-jwt-authentication-flow](docs/authentication-flow.png)
 
-##Refresh Token process
+## Refresh Token process
 
 ![spring-boot-refresh-token-jwt-example-flow](docs/refresh-token-jwt-flow.png)
 
