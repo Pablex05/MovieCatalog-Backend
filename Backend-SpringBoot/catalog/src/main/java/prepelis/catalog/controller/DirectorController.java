@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import prepelis.catalog.dto.DirectorDto;
+import prepelis.catalog.exception.DataNotFoundException;
 import prepelis.catalog.service.api.DirectorService;
 
 import java.util.List;
@@ -21,15 +22,23 @@ public class DirectorController {
     @GetMapping("/getById/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<DirectorDto> getDirectorById(@PathVariable(name = "id") Long id){
-        DirectorDto director = directorService.getDirectorById(id);
-        return new ResponseEntity<>(director, HttpStatus.OK);
+        try {
+            DirectorDto director = directorService.getDirectorById(id);
+            return new ResponseEntity<>(director, HttpStatus.OK);
+        } catch (NullPointerException e){
+            throw new DataNotFoundException("Director not found in database");
+        }
     }
 
     @GetMapping("/getByName/{name}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<DirectorDto> getActorById(@PathVariable(name = "name") String name){
-        DirectorDto director = directorService.getDirectorByName(name);
-        return new ResponseEntity<>(director, HttpStatus.OK);
+        try {
+            DirectorDto director = directorService.getDirectorByName(name);
+            return new ResponseEntity<>(director, HttpStatus.OK);
+        } catch (NullPointerException e){
+            throw new DataNotFoundException("Director not found in database");
+        }
     }
 
     @GetMapping("/getAll")
@@ -50,14 +59,22 @@ public class DirectorController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> updateDirector(@PathVariable(name = "id") Long id,
                                                  @RequestBody DirectorDto directorDto) {
-        String message = directorService.updateDirector(id, directorDto);
-        return new ResponseEntity<>(message, HttpStatus.CREATED);
+        try {
+            String message = directorService.updateDirector(id, directorDto);
+            return new ResponseEntity<>(message, HttpStatus.CREATED);
+        } catch (NullPointerException e){
+            throw new DataNotFoundException("Director not found in database");
+        }
     }
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteDirector(@PathVariable(name = "id") Long id) {
-        String message = directorService.deleteDirector(id);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        try {
+            String message = directorService.deleteDirector(id);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (NullPointerException e){
+            throw new DataNotFoundException("Director not found in database");
+        }
     }
 }

@@ -52,6 +52,7 @@ public class ActorController {
                                               @RequestBody ActorDto actorDto) {
         String message = actorService.updateActor(id, actorDto);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
+
     }
 
     @DeleteMapping("/delete/{id}")

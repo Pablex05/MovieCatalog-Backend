@@ -3,6 +3,7 @@ package prepelis.catalog.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import prepelis.catalog.dto.ActorDto;
+import prepelis.catalog.exception.DataNotFoundException;
 import prepelis.catalog.model.Actor;
 import prepelis.catalog.model.Movie;
 import prepelis.catalog.repository.ActorRepository;

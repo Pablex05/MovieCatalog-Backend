@@ -1,4 +1,4 @@
-package prepelis.catalog.user.advice;
+package prepelis.catalog.advice;
 
 import java.util.Date;
 
