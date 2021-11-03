@@ -48,14 +48,14 @@ public class ActorController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addActor(@Valid  @RequestBody ActorDto actorDto) {
+    public ResponseEntity<String> addActor(@Valid @RequestBody ActorDto actorDto) {
         String message = actorService.addActor(actorDto);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<String> updateActor(@Valid @PathVariable(name = "id") Long id,
-                                              @RequestBody ActorDto actorDto) {
+    public ResponseEntity<String> updateActor(@PathVariable(name = "id") Long id,
+                                              @Valid @RequestBody ActorDto actorDto) {
         try {
             String message = actorService.updateActor(id, actorDto);
             return new ResponseEntity<>(message, HttpStatus.CREATED);

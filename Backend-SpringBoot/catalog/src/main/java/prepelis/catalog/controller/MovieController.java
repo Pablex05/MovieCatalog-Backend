@@ -60,8 +60,8 @@ public class MovieController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<String> updateMovie(@Valid @PathVariable(name = "id") Long id,
-                                              @RequestBody MovieDto movie) {
+    public ResponseEntity<String> updateMovie(@PathVariable(name = "id") Long id,
+                                              @Valid @RequestBody MovieDto movie) {
         try {
             String message = movieService.updateMovie(id, movie);
             return new ResponseEntity<>(message, HttpStatus.CREATED);

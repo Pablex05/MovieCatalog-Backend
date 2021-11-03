@@ -54,8 +54,8 @@ public class DirectorController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<String> updateDirector(@Valid @PathVariable(name = "id") Long id,
-                                                 @RequestBody DirectorDto directorDto) {
+    public ResponseEntity<String> updateDirector(@PathVariable(name = "id") Long id,
+                                                 @Valid @RequestBody DirectorDto directorDto) {
         try {
             String message = directorService.updateDirector(id, directorDto);
             return new ResponseEntity<>(message, HttpStatus.CREATED);

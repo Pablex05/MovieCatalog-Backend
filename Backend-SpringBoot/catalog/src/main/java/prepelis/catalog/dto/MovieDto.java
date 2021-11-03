@@ -28,7 +28,7 @@ public class MovieDto{
     private Genre genre;
 
     @NotNull(message = "Release date is required")
-    @JsonProperty("Release Date")
+    @JsonProperty("ReleaseDate")
     private Date releaseDate;
 
     @NotNull(message = "Duration is required")
