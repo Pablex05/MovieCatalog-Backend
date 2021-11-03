@@ -64,14 +64,10 @@ public class ActorServiceImpl implements ActorService {
     @Transactional
     @Override
     public String updateActor(Long actorId, ActorDto actorDto) {
-        if (actorRepository.findByName(actorDto.getName()) == null){
         Actor crs = actorRepository.findActorById(actorId);
         mapDtoToEntity(actorDto, crs);
         Actor actor = actorRepository.save(crs);
         return "Actor successfully edited!";
-        } else {
-            return "Actor name already register";
-        }
     }
 
     @Transactional

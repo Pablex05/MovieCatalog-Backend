@@ -63,14 +63,10 @@ public class DirectorServiceImpl implements DirectorService {
     @Transactional
     @Override
     public String updateDirector(Long directorId, DirectorDto directorDto) {
-        if (directorRepository.findByName(directorDto.getName()) == null){
-            Director crs = directorRepository.findDirectorById(directorId);
-            mapDtoToEntity(directorDto, crs);
-            Director director = directorRepository.save(crs);
-            return "Director successfully edited!";
-        } else {
-            return "Director name already register";
-        }
+        Director crs = directorRepository.findDirectorById(directorId);
+        mapDtoToEntity(directorDto, crs);
+        Director director = directorRepository.save(crs);
+        return "Director successfully edited!";
     }
 
     @Transactional

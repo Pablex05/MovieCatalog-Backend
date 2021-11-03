@@ -73,16 +73,12 @@ public class MovieServiceImpl implements MovieService {
     @Transactional
     @Override
     public String updateMovie(Long movieId, MovieDto movieDto) {
-        if (movieRepository.findByTitle(movieDto.getTitle()) == null){
-            Movie std = movieRepository.findMovieById(movieId);
-            std.removeActors();
-            std.removeDirector(std.getDirector());
-            mapDtoToEntity(movieDto, std);
-            movieRepository.save(std);
-            return "Movie successfully edited!";
-        } else {
-            return "Movie title already register";
-        }
+        Movie std = movieRepository.findMovieById(movieId);
+        std.removeActors();
+        std.removeDirector(std.getDirector());
+        mapDtoToEntity(movieDto, std);
+        movieRepository.save(std);
+        return "Movie successfully edited!";
     }
 
     @Override
