@@ -1,7 +1,6 @@
 package prepelis.catalog.service.impl;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import prepelis.catalog.dto.MovieDto;
 import prepelis.catalog.model.Actor;
 import prepelis.catalog.model.Director;
@@ -34,7 +33,6 @@ public class MovieServiceImpl implements MovieService {
     @Resource
     private DirectorRepository directorRepository;
 
-    @Transactional
     @Override
     public String addMovie(MovieDto movieDto) {
         if (movieRepository.findByTitle(movieDto.getTitle()) == null){

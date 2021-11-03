@@ -1,7 +1,6 @@
 package prepelis.catalog.service.impl;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import prepelis.catalog.dto.DirectorDto;
 import prepelis.catalog.model.Director;
 import prepelis.catalog.model.Movie;
@@ -24,7 +23,6 @@ public class DirectorServiceImpl implements DirectorService {
     @Resource
     private DirectorRepository directorRepository;
 
-    @Transactional
     @Override
     public String addDirector(DirectorDto directorDto) {
         if (directorRepository.findByName(directorDto.getName()) == null){
@@ -60,16 +58,18 @@ public class DirectorServiceImpl implements DirectorService {
         return directorDtos;
     }
 
-    @Transactional
     @Override
     public String updateDirector(Long directorId, DirectorDto directorDto) {
-        Director crs = directorRepository.findDirectorById(directorId);
-        mapDtoToEntity(directorDto, crs);
-        Director director = directorRepository.save(crs);
-        return "Director successfully edited!";
+        Director director = directorRepository.findDirectorById(directorId);
+        if (directorRepository.findByName(directorDto.getName()) == null || directorDto.getName().equals(director.getName())) {
+            mapDtoToEntity(directorDto, director);
+            directorRepository.save(director);
+            return "Director successfully edited!";
+        } else {
+            return "Director name already register";
+        }
     }
 
-    @Transactional
     @Override
     public String deleteDirector(Long directorId) {
         Optional<Director> director = directorRepository.findById(directorId);

@@ -1,9 +1,7 @@
 package prepelis.catalog.service.impl;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import prepelis.catalog.dto.ActorDto;
-import prepelis.catalog.exception.DataNotFoundException;
 import prepelis.catalog.model.Actor;
 import prepelis.catalog.model.Movie;
 import prepelis.catalog.repository.ActorRepository;
@@ -25,7 +23,6 @@ public class ActorServiceImpl implements ActorService {
     @Resource
     private ActorRepository actorRepository;
 
-    @Transactional
     @Override
     public String addActor(ActorDto actorDto) {
         if (actorRepository.findByName(actorDto.getName()) == null){
@@ -61,16 +58,18 @@ public class ActorServiceImpl implements ActorService {
         return actorDtos;
     }
 
-    @Transactional
     @Override
     public String updateActor(Long actorId, ActorDto actorDto) {
-        Actor crs = actorRepository.findActorById(actorId);
-        mapDtoToEntity(actorDto, crs);
-        Actor actor = actorRepository.save(crs);
-        return "Actor successfully edited!";
+        Actor actor = actorRepository.findActorById(actorId);
+        if (actorRepository.findByName(actorDto.getName()) == null || actorDto.getName().equals(actor.getName())) {
+            mapDtoToEntity(actorDto, actor);
+            actorRepository.save(actor);
+            return "Actor successfully edited!";
+        } else {
+            return "Actor name already register";
+        }
     }
 
-    @Transactional
     @Override
     public String deleteActor(Long actorId) {
         Optional<Actor> actor = actorRepository.findById(actorId);
