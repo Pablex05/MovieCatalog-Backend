@@ -3,15 +3,18 @@ package prepelis.catalog.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import prepelis.catalog.dto.MovieDto;
 import prepelis.catalog.exception.DataNotFoundException;
 import prepelis.catalog.service.api.MovieService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@Validated
 @RequestMapping("/movie")
 public class MovieController {
 
@@ -51,13 +54,13 @@ public class MovieController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addMovie(@RequestBody MovieDto movieDto) {
+    public ResponseEntity<String> addMovie(@Valid @RequestBody MovieDto movieDto) {
         String message = movieService.addMovie(movieDto);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<String> updateMovie(@PathVariable(name = "id") Long id,
+    public ResponseEntity<String> updateMovie(@Valid @PathVariable(name = "id") Long id,
                                               @RequestBody MovieDto movie) {
         try {
             String message = movieService.updateMovie(id, movie);
@@ -68,13 +71,10 @@ public class MovieController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteMovie(@PathVariable(name = "id") Long movieId) {
-        try {
-            String message = movieService.deleteMovie(movieId);
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        } catch (NullPointerException e){
-            throw new DataNotFoundException("Movie not found in database");
-        }
+    public ResponseEntity<String> deleteMovie(@PathVariable(name = "id") Long id) {
+        String message = movieService.deleteMovie(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
 }
 

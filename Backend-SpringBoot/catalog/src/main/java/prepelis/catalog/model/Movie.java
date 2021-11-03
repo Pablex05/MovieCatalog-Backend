@@ -28,36 +28,29 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Column(name = "title")
     private String title;
 
     @Enumerated (EnumType.STRING)
-    @NotNull
     @Column(name = "genre")
     private Genre genre;
 
-    @NotEmpty
     @Column (name = "releaseDate", columnDefinition = "DATE")
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date releaseDate;
 
-    @NotNull
     @Column (name = "duration", columnDefinition = "TIME")
     @JsonFormat(pattern="HH:mm:ss")
     private Time duration;
 
-    @NotBlank
     @Column(name = "trailer")
     private String trailer;
 
     @Enumerated (EnumType.STRING)
-    @NotNull
     @Column(name = "language")
     private Language language;
 
     @Enumerated (EnumType.STRING)
-    @NotNull
     @Column(name = "subtitle")
     private Language subtitle;
 

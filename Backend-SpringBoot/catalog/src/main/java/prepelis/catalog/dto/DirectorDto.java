@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ public class DirectorDto {
 
     private Long id;
 
+    @NotBlank(message = "Name is required")
     @JsonProperty("Name")
     private String name;
 

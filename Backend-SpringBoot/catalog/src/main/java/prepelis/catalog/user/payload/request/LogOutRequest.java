@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class LogOutRequest {
 
-  @NotNull
+  @NotNull(message = "User id is required")
   private Long userId;
 
 }

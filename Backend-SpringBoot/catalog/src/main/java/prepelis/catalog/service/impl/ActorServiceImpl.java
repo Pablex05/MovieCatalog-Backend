@@ -34,7 +34,7 @@ public class ActorServiceImpl implements ActorService {
             actorRepository.save(actor);
             return "Actor successfully created";
         } else {
-            return "Actor already exist";
+            return "Actor name already register";
         }
     }
 
@@ -64,10 +64,14 @@ public class ActorServiceImpl implements ActorService {
     @Transactional
     @Override
     public String updateActor(Long actorId, ActorDto actorDto) {
+        if (actorRepository.findByName(actorDto.getName()) == null){
         Actor crs = actorRepository.findActorById(actorId);
         mapDtoToEntity(actorDto, crs);
         Actor actor = actorRepository.save(crs);
         return "Actor successfully edited!";
+        } else {
+            return "Actor name already register";
+        }
     }
 
     @Transactional
@@ -77,8 +81,7 @@ public class ActorServiceImpl implements ActorService {
         if(actor.isPresent()) {
             actorRepository.deleteById(actor.get().getId());
             return "Actor with id: " + actorId + " deleted successfully!";
-        }
-        return null;
+        } else return "Actor not found in database";
     }
 
     private String mapDtoToEntity(ActorDto actorDto, Actor actor) {

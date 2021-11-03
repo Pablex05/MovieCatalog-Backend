@@ -33,7 +33,7 @@ public class DirectorServiceImpl implements DirectorService {
             directorRepository.save(director);
             return "Director successfully created";
         } else {
-            return "Director already exist";
+            return "Director name already register";
         }
     }
 
@@ -63,10 +63,14 @@ public class DirectorServiceImpl implements DirectorService {
     @Transactional
     @Override
     public String updateDirector(Long directorId, DirectorDto directorDto) {
-        Director crs = directorRepository.findDirectorById(directorId);
-        mapDtoToEntity(directorDto, crs);
-        Director director = directorRepository.save(crs);
-        return "Director successfully edited!";
+        if (directorRepository.findByName(directorDto.getName()) == null){
+            Director crs = directorRepository.findDirectorById(directorId);
+            mapDtoToEntity(directorDto, crs);
+            Director director = directorRepository.save(crs);
+            return "Director successfully edited!";
+        } else {
+            return "Director name already register";
+        }
     }
 
     @Transactional
@@ -75,9 +79,8 @@ public class DirectorServiceImpl implements DirectorService {
         Optional<Director> director = directorRepository.findById(directorId);
         if(director.isPresent()) {
             directorRepository.deleteById(director.get().getId());
-            return "Actor with id: " + directorId + " deleted successfully!";
-        }
-        return null;
+            return "Director with id: " + directorId + " deleted successfully!";
+        } else return "Director not found in database";
     }
 
     private String mapDtoToEntity(DirectorDto directorDto, Director director) {

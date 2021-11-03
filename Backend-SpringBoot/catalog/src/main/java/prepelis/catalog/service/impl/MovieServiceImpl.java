@@ -12,7 +12,6 @@ import prepelis.catalog.repository.MovieRepository;
 import prepelis.catalog.service.api.MovieService;
 
 import javax.annotation.Resource;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -44,7 +43,7 @@ public class MovieServiceImpl implements MovieService {
             movieRepository.save(movie);
             return "Movie successfully created!";
         } else {
-            return "Movie already exist";
+            return "Movie title already register";
         }
     }
 
@@ -74,24 +73,25 @@ public class MovieServiceImpl implements MovieService {
     @Transactional
     @Override
     public String updateMovie(Long movieId, MovieDto movieDto) {
-        Movie std = movieRepository.findMovieById(movieId);
-        std.removeActors();
-        std.removeDirector(std.getDirector());
-        mapDtoToEntity(movieDto, std);
-        movieRepository.save(std);
-        return "Movie successfully edited!";
+        if (movieRepository.findByTitle(movieDto.getTitle()) == null){
+            Movie std = movieRepository.findMovieById(movieId);
+            std.removeActors();
+            std.removeDirector(std.getDirector());
+            mapDtoToEntity(movieDto, std);
+            movieRepository.save(std);
+            return "Movie successfully edited!";
+        } else {
+            return "Movie title already register";
+        }
     }
 
     @Override
     public String deleteMovie(Long movieId) {
-
         Optional<Movie> movie = movieRepository.findById(movieId);
-        //Remove the related courses from student entity.
         if(movie.isPresent()) {
             movieRepository.deleteById(movie.get().getId());
             return "Movie with id: " + movieId + " deleted successfully!";
-        }
-        return null;
+        } else return "Movie not found in database";
     }
 
     private String mapDtoToEntity(MovieDto movieDto, Movie movie) {
@@ -114,7 +114,6 @@ public class MovieServiceImpl implements MovieService {
             movie.addActor(actor);
         }
 
-        //movie.removeDirector(movie.getDirector());
         String directorName = movieDto.getDirector();
         Director director = directorRepository.findByName(directorName);
         if (null == director) {

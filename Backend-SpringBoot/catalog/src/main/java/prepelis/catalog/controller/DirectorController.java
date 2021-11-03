@@ -3,15 +3,18 @@ package prepelis.catalog.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import prepelis.catalog.dto.DirectorDto;
 import prepelis.catalog.exception.DataNotFoundException;
 import prepelis.catalog.service.api.DirectorService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@Validated
 @RequestMapping("director")
 public class DirectorController {
 
@@ -45,13 +48,13 @@ public class DirectorController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addDirector(@RequestBody DirectorDto directorDto) {
+    public ResponseEntity<String> addDirector(@Valid @RequestBody DirectorDto directorDto) {
         String message = directorService.addDirector(directorDto);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<String> updateDirector(@PathVariable(name = "id") Long id,
+    public ResponseEntity<String> updateDirector(@Valid @PathVariable(name = "id") Long id,
                                                  @RequestBody DirectorDto directorDto) {
         try {
             String message = directorService.updateDirector(id, directorDto);
@@ -63,11 +66,7 @@ public class DirectorController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteDirector(@PathVariable(name = "id") Long id) {
-        try {
-            String message = directorService.deleteDirector(id);
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        } catch (NullPointerException e){
-            throw new DataNotFoundException("Director not found in database");
-        }
+        String message = directorService.deleteDirector(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

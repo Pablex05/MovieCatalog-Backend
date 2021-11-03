@@ -34,17 +34,14 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
-	@Size(max = 20)
+	@Size(min = 4, max = 20, message = "Username requires between 4 and 20 characters")
 	private String username;
 
-	@NotBlank
-	@Size(max = 50)
+	@Size(min = 6,max = 50, message = "Email requires between 6 and 10 characters")
 	@Email
 	private String email;
 
-	@NotBlank
-	@Size(max = 120)
+	@Size(min = 4, max = 120, message = "Password requires between 4 and 120 characters")
 	@JsonIgnore
 	private String password;
 	

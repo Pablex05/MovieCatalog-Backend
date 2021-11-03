@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import prepelis.catalog.model.Movie;
 
+import java.util.Optional;
+
 /**
  * JpaRepository contains the full API of CrudRepository and PagingAndSortingRepository.
  * So it contains API for basic CRUD operations and also API for pagination and sorting.

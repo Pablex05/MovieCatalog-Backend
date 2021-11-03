@@ -3,15 +3,18 @@ package prepelis.catalog.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import prepelis.catalog.dto.ActorDto;
 import prepelis.catalog.exception.DataNotFoundException;
 import prepelis.catalog.service.api.ActorService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@Validated
 @RequestMapping("actor")
 public class ActorController {
 
@@ -45,13 +48,13 @@ public class ActorController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addActor(@RequestBody ActorDto actorDto) {
+    public ResponseEntity<String> addActor(@Valid  @RequestBody ActorDto actorDto) {
         String message = actorService.addActor(actorDto);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<String> updateActor(@PathVariable(name = "id") Long id,
+    public ResponseEntity<String> updateActor(@Valid @PathVariable(name = "id") Long id,
                                               @RequestBody ActorDto actorDto) {
         try {
             String message = actorService.updateActor(id, actorDto);
@@ -63,12 +66,8 @@ public class ActorController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteActor(@PathVariable(name = "id") Long id) {
-        try {
-            String message = actorService.deleteActor(id);
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        } catch (NullPointerException e) {
-            throw new DataNotFoundException("Actor not found in database");
-        }
+        String message = actorService.deleteActor(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }
 
